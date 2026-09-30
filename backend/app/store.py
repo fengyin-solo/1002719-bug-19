@@ -27,6 +27,18 @@ class Store:
                 return row
         return None
 
+    # 各模块看板的「终态」集合：未到终态的明细都算待处理。
+    # 口径随明细状态现算，避免待处理数与列表对不上。
+    _DONE_STATUSES: dict[str, frozenset[str]] = {
+        "repair": frozenset({"已完成"}),
+    }
+
+    def _is_pending(self, module: str, row: dict[str, Any]) -> bool:
+        done = self._DONE_STATUSES.get(module)
+        if done is not None:
+            return row.get("status") not in done
+        return bool(row.get("pending"))
+
     def overview(self) -> dict[str, object]:
         modules: list[dict[str, object]] = []
         for name in self.module_names():
@@ -34,7 +46,7 @@ class Store:
             modules.append({
                 "name": name,
                 "created": len(rows),
-                "pending": sum(1 for row in rows if row.get("pending")),
+                "pending": sum(1 for row in rows if self._is_pending(name, row)),
                 "abnormal": sum(1 for row in rows if row.get("abnormal")),
             })
         cards = [

@@ -33,3 +33,19 @@ body { margin: 0; background: #f6f8fb; color: #1f2937; }
 .link { border: none; background: none; color: var(--brand); cursor: pointer; padding: 0; }
 .page-foot { display: flex; justify-content: space-between; margin-top: 8px; font-size: 12px; color: var(--muted); }
 .error-text { color: #b42318; }
+
+/* 箱体修洗页：身份切换条、看板高亮与弹窗 */
+.actor-bar { display: flex; align-items: center; gap: 10px; background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; margin-bottom: 12px; font-size: 13px; }
+.actor-label { color: var(--muted); }
+.actor-select { border: 1px solid var(--border); border-radius: 6px; padding: 4px 8px; font-size: 13px; }
+.actor-hint { color: var(--muted); font-size: 12px; }
+.stat-hot { border-color: var(--brand); }
+.stat-hot .stat-value { color: var(--brand); }
+.modal-mask { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.45); display: flex; align-items: center; justify-content: center; z-index: 20; }
+.modal-card { background: #fff; border-radius: 10px; padding: 18px 20px; width: 520px; max-width: calc(100vw - 40px); max-height: 80vh; overflow: auto; }
+.modal-card h3 { margin: 0 0 8px; font-size: 15px; }
+.modal-tip { color: var(--muted); font-size: 12px; margin: 0 0 12px; }
+.modal-card .filter-item { margin-bottom: 10px; width: 100%; }
+.modal-card .filter-item input { width: 100%; border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px; }
+.modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 8px; }
+.link:disabled { color: #9aa6b2; cursor: not-allowed; }
