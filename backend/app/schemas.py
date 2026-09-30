@@ -19,12 +19,32 @@ class ActionResult(BaseModel):
     ok: bool
     message: str
     entry: dict[str, Any] | None = None
+    deduplicated: bool = False
 
 
 class EntryPayload(BaseModel):
     """登记或修改一条业务记录时提交的字段集合。"""
 
     values: dict[str, Any] = Field(default_factory=dict)
+    remark: str | None = None
+
+
+class Actor(BaseModel):
+    """当前操作人：姓名、所属堆场与角色（多角色冲突时按更严的角色判定）。"""
+
+    name: str = ""
+    yard: str = ""
+    roles: list[str] = Field(default_factory=list)
+
+
+class RepairCommand(BaseModel):
+    """箱体修洗写操作统一入参：动作、字段、操作人、幂等键与乐观锁版本。"""
+
+    values: dict[str, Any] = Field(default_factory=dict)
+    action: str | None = None
+    actor: Actor = Field(default_factory=Actor)
+    request_id: str | None = None
+    expected_version: int | None = None
     remark: str | None = None
 
 
